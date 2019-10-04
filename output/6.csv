@@ -1,0 +1,2 @@
+issuer,invoice_number,invoice_gst_1,invoice_gst_2,date,amount,currency,desc
+Invoice,6930,"['27atlpa7704m1zf', '27aaofb8787d1zx']","('27atlpa7704m1zf', '27aaofb8787d1zx')",2018-12-12,42.0,¥,Invoice from Invoice
