@@ -2,7 +2,7 @@
 Rule-based Invoice Extraction for GST receipts
 
 ## Setup:
-### Install virtualvnv
+### Install virtualenv
 ```
 py -m pip install --user virtualenv
 ```
