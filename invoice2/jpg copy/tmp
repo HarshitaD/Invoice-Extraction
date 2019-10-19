@@ -1,0 +1,12 @@
+{
+	"resource": "/Users/harshitadudhe/freelance/Invoice-Extraction/invoice2/evaluate_hocr.py",
+	"owner": "python",
+	"code": "unused-wildcard-import",
+	"severity": 4,
+	"message": "Unused import isAmount from wildcard import",
+	"source": "pylint",
+	"startLineNumber": 20,
+	"startColumn": 1,
+	"endLineNumber": 20,
+	"endColumn": 1
+}
