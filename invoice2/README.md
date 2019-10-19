@@ -23,7 +23,8 @@ py -m venv env
 ```
 pip install -r requirements.txt
 ```
-### Run the invoice extraction module
+
+## Run the invoice extraction module
 ```
 python invoice2/folder_watch.py
 ```
