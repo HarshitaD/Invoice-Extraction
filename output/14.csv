@@ -1,2 +1,0 @@
-issuer,invoice_number,invoice_gst_1,date,amount,currency,lines,desc
-Invoice,28-,27aajpv1418j2zd,2018-11-28,769.0,¥,"[{'Number': '3', 'HSN': '1000'}, {'Number': '2', 'HSN': '7099'}, {'Number': '3', 'HSN': '7099'}, {'Number': '4', 'HSN': '4999'}, {'Number': '5', 'HSN': '4210'}, {'Number': '8', 'HSN': '1000'}, {'Number': '8', 'HSN': '7099'}, {'Number': '8', 'HSN': '4999'}, {'Number': '8', 'HSN': '4210'}]",Invoice from Invoice

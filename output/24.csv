@@ -1,2 +1,0 @@
-issuer,invoice_number,invoice_gst_1,date,amount,currency,lines,desc
-Invoice,59,27arhpp1848h1zi,2018-07-06,18.0,¥,"[{'Number': '1', 'HSN': '1800'}]",Invoice from Invoice

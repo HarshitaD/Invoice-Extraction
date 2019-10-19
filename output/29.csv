@@ -1,2 +1,0 @@
-issuer,invoice_number,invoice_gst_1,invoice_gst_2,date,amount,currency,lines,desc
-Invoice,7,"['27aajpv1418j2zd', '27aampn2359p1zx']","('27aampn2359p1zx', '27aajpv1418j2zd')",2018-04-28,767.0,¥,"[{'Number': '1', 'HSN': '0000'}]",Invoice from Invoice

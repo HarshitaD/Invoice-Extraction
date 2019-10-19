@@ -1,2 +1,0 @@
-issuer,invoice_number,invoice_gst_ordered,date,amount,currency,lines,desc
-Invoice,18/19-3318,27aanfp9098c1z0,2019-01-06,270.0,¥,"[{'Number': '1', 'HSN': '8302'}, {'Number': '2', 'HSN': '8302'}]",Invoice from Invoice
