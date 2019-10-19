@@ -7,7 +7,10 @@ from pathlib import Path, PureWindowsPath
 from config import hocr_folder, jpg_folder, os_for_pathlib
 
 
-evaluate_hocr_path = Path("invoice2") / "evaluate_hocr.py"
+evaluate_hocr_path = Path("invoice2") / Path("evaluate_hocr.py")
+if os_for_pathlib == "Windows":
+    evaluate_hocr_path = PureWindowsPath(evaluate_hocr_path)
+
 class ExampleHandler(FileSystemEventHandler):
     def on_created(self, event):
         # when file is created
@@ -24,7 +27,7 @@ class ExampleHandler(FileSystemEventHandler):
         with open(Path(hocr_folder) / hocr_file, 'a') as f:
             f.write(out.decode("utf-8"))
         print('HOCR written')  
-        out = subprocess.call(["python", evaluate_hocr_path , hocr_filename])
+        out = subprocess.call(["python", str(evaluate_hocr_path) , hocr_filename])
         print(out)
         print('Output written in xlsx and json')
         
