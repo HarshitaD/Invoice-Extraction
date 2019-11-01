@@ -1,4 +1,4 @@
-argh==0.26.2
+argh
 astroid==2.2.5
 backports.csv==1.0.7
 chardet==3.0.4

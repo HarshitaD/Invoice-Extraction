@@ -1,7 +1,19 @@
 # -*- coding: utf-8 -*-
+from config import *
+from pathlib import Path, PureWindowsPath
 
+tesseract_run_path = Path("invoice2") / Path("tesseract_run.bat")
+if os_for_pathlib == "Windows":
+    tesseract_run_path = PureWindowsPath(tesseract_run_path)
+tesseract_run_path = str(tesseract_run_path)
+def to_text(path,  path_out = None):
 
-def to_text(path):
+    if os_for_pathlib == "Windows":
+        import subprocess
+        p = subprocess.Popen([tesseract_run_path, path, path_out, "shell=True"])
+        out = p.communicate()
+        return out
+
     """Wraps Tesseract OCR.
 
     Parameters
@@ -21,14 +33,15 @@ def to_text(path):
     # Check for dependencies. Needs Tesseract and Imagemagick installed.
     if not spawn.find_executable("tesseract"):
         raise EnvironmentError("tesseract not installed.")
-    if not spawn.find_executable("convert"):
+    if not spawn.find_executable("magick"):
         raise EnvironmentError("imagemagick not installed.")
 
     # convert = "convert -density 350 %s -depth 8 tiff:-" % (path)
     convert = [
-        "convert",
+        # "convert",
+        "magick",
         "-density",
-        "350",
+        "400",
         path,
         "-depth",
         "8",
@@ -47,22 +60,3 @@ def to_text(path):
     extracted_str = out
 
     return extracted_str
-
-if __name__ == "__main__":
-    import os
-    # files = os.listdir('jpg2pdf')
-    # for f in files:
-    #     out = to_text('jpg2pdf/'+f)
-    #     with open('hocr/'+f[:-4]+'.hocr', 'a') as f:
-    #         f.write(out.decode("utf-8"))
-
-    files = os.listdir('jpg')
-    for f in files:
-        out = to_text('jpg/'+f)
-        with open('hocr/'+f[:-4]+'.hocr', 'a') as f:
-            f.write(out.decode("utf-8"))
-             
-
-
-
-

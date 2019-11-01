@@ -16,18 +16,22 @@ class ExampleHandler(FileSystemEventHandler):
         # when file is created
         # do something, eg. call your function to process the image
         print(event.src_path)
-        out = to_text(Path(event.src_path))
-        tmp = event.src_path.split('/')[-1][:-4]
+        src_path = PureWindowsPath(event.src_path)
+        if os_for_pathlib == "Windows":
+            tmp = event.src_path.split('\\')[-1][:-4]
         tmp = str(tmp)
-        hocr_file = "{}.hocr".format(tmp)
-        # hocr_filepath = Path(hocr_folder) / hocr_file
-        # if os_for_pathlib == "Windows":
-        #     hocr_filepath = PureWindowsPath(hocr_filepath)
-        # hocr_filepath = str(hocr_filepath)
-        with open(Path(hocr_folder) / hocr_file, 'a') as f:
-            f.write(out.decode("utf-8"))
+        # hocr_file = "{}.hocr".format(tmp)
+        hocr_file = tmp
+        hocr_filepath = Path(hocr_folder) / hocr_file
+        if os_for_pathlib == "Windows":
+            hocr_filepath = PureWindowsPath(hocr_filepath)
+        hocr_filepath = str(hocr_filepath)
+        
+        if os_for_pathlib == "Windows":
+            to_text(str(src_path), hocr_filepath)
+        
         print('HOCR written')  
-        out = subprocess.call(["python", str(evaluate_hocr_path) , hocr_filename])
+        out = subprocess.call(["python", str(evaluate_hocr_path) , tmp])
         print(out)
         print('Output written in xlsx and json')
         

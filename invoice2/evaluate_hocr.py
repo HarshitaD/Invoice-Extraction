@@ -149,11 +149,22 @@ def bbox_in_limits(bbox, min_bbox, max_bbox):
 			return False
 	return True
 
+def getTextAfterEncoding(x):
+	try:
+		bts = x.text.encode('cp1252')
+		bts = str(bts, 'cp1252', 'ignore')
+		# bts = unicode(bts, errors='replace')
+	except Exception as e:
+		print('Error: ',e)
+		bts = ''
+		
+	return bts.strip()
+
 def get_text_by_line_id(line_id):
 	line = root.get_element_by_id(line_id)
 	texts = [x.text.strip() for x in line.iterchildren() if x.text]
 	texts = ' '.join(texts)
-	return texts
+	return texts.strip()
 
 
 
@@ -241,7 +252,7 @@ def get_adj_by_text(text, direction = 'default', strict = False, ymax= 99999, id
 def isAmount(x):
 	strs = [x for x in x if x not in [',','.','+','-','(',')']]
 	if len(strs)>0:
-		isNum = sum([not x.isdigit() for x in strs])
+		isNum = sum([not str(x).isdigit() for x in strs])
 	else:
 		isNum = 1
 	return isNum==0
@@ -318,7 +329,7 @@ def get_line_id_by_words(words):
 	return rel_line.get('id')
 
 def get_text_by_id(id):
-	return root.get_element_by_id(id).text
+	return str(root.get_element_by_id(id).text.encode('utf-8'))
 
 # get_adj_by_text('Invoice','right')
 # get_adj_by_text('Invoice','below')
@@ -331,6 +342,7 @@ def get_text_by_id(id):
 
 def clean_text(text):
 	if text:
+		text = str(text.strip())
 		text = text.replace('|','')
 		text = text.replace('[','')
 		text = text.replace(']','')
@@ -739,6 +751,7 @@ def flatten_dict(d):
     return dict(items)
 
 def add_paths(path1, path2):
+	print(path1,path2)
 	if type(path1) == type('str'):
 		path1 = Path(path1)
 	if type(path2) == type('str'):
@@ -746,6 +759,7 @@ def add_paths(path1, path2):
 	path = path1 / path2
 	if os_for_pathlib == 'Windows':
 		path = PureWindowsPath(path)
+	print(path)
 	return path
 	
 
@@ -760,6 +774,9 @@ if __name__ == "__main__":
 
 	jpg_path = add_paths(jpg_folder,  args.name +'.jpg')
 	hocr_path = add_paths(hocr_folder, args.name+'.hocr')
+	# hocr_path = add_paths(hocr_folder, args.name)#+'.hocr')
+	print("hocr_path")
+	print(hocr_path)
 	doc = html.parse(str(hocr_path))
 
 	#get root
@@ -767,6 +784,9 @@ if __name__ == "__main__":
 
 	#find all ocr_lines
 	ocr_lines = doc.getroot().find_class('ocr_line')
+
+	print('imagecopy_path')
+	print(jpg_path)
 
 	# Used for visualization only
 	imagecopy = cv2.imread(str(jpg_path))
@@ -800,6 +820,7 @@ if __name__ == "__main__":
 	row_ids = unique(row_ids)
 	for row_id in row_ids:
 		out = get_text_by_line_id(row_id)
+		# import pdb; pdb.set_trace()
 		out = out.split(' ')
 		out = [clean_text(o) for o in out if o]
 		#print(out)
